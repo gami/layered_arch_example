@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+  simple:
+    build: local/
+    tty: true
+    env_file:
+      - ./env/db.env
+    volumes:
+      - "..:/app"
+    links:
+      - simple_test_db
+      - simple_local_db
+    command: make dev
+    networks:
+      - local_network
+  simple_test_db:
+    image: mysql:5.7
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: "simple_test"
+      MYSQL_USER: "test"
+      MYSQL_PASSWORD: "test"
+    command: mysqld --innodb-file-format=Barracuda --innodb-file-format-max=Barracuda --innodb-file-per-table=true --innodb-large-prefix=true
+    networks:
+      - local_network
+  simple_local_db:
+    image: mysql:5.7
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: "simple"
+      MYSQL_USER: "dev"
+      MYSQL_PASSWORD: "dev"
+    command: mysqld --innodb-file-format=Barracuda --innodb-file-format-max=Barracuda --innodb-file-per-table=true --innodb-large-prefix=true
+    networks:
+      - local_network
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8083:8080"
+    volumes:
+      - ../resources/openapi/openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+    networks:
+      - local_network
+networks:
+  local_network:
+    driver: bridge

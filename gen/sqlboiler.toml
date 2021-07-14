@@ -1,0 +1,12 @@
+[mysql]
+  dbname    = "simple"
+  host      = "simple_local_db"
+  port      = 3306
+  user      = "dev"
+  pass      = "dev"
+  sslmode   = "false"
+  blacklist = [
+    "tags",
+    "tag_lists",
+  ]
+  no-tests = true
