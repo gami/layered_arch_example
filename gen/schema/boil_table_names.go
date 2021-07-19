@@ -4,7 +4,9 @@
 package schema
 
 var TableNames = struct {
-	Users string
+	Profiles string
+	Users    string
 }{
-	Users: "users",
+	Profiles: "profiles",
+	Users:    "users",
 }

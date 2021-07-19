@@ -14,6 +14,16 @@ type Error struct {
 	Message string `json:"message"`
 }
 
+// Profile defines model for Profile.
+type Profile struct {
+
+	// 趣味
+	Hobby *string `json:"hobby,omitempty"`
+
+	// ひとこと
+	Pr *string `json:"pr,omitempty"`
+}
+
 // User defines model for User.
 type User struct {
 
@@ -21,12 +31,15 @@ type User struct {
 	Id uint64 `json:"id"`
 
 	// name
-	Name    string `json:"name"`
-	Profile Error  `json:"profile"`
+	Name    string  `json:"name"`
+	Profile Profile `json:"profile"`
 }
 
 // CreateUserJSONBody defines parameters for CreateUser.
 type CreateUserJSONBody struct {
+
+	// hobby
+	Hobby *string `json:"hobby,omitempty"`
 
 	// name
 	Name string `json:"name"`

@@ -7,6 +7,7 @@ import (
 
 func DomainUser(s *schema.User) *user.User {
 	return &user.User{
-		ID: s.ID,
+		ID:   s.ID,
+		Name: s.Name,
 	}
 }

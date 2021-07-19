@@ -22,8 +22,9 @@ var prdEnv []byte
 
 //Config represents configuration root.
 type Config struct {
-	Database Database
 	AppEnv   string
+	AWS      AWS
+	Database Database
 }
 
 var config *Config
