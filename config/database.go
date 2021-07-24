@@ -4,7 +4,7 @@ import (
 	"os"
 )
 
-//Database represents configuration about database connection.
+// Database represents configuration about database connection.
 type Database struct {
 	Host     string
 	User     string

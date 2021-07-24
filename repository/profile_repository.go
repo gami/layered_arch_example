@@ -17,6 +17,9 @@ type Profile struct {
 	db *sql.DB
 }
 
+// build error will occur if User does not implement user.Repository.
+var _ profile.Repository = &Profile{}
+
 func NewProfile(db *mysql.DB) profile.Repository {
 	return &Profile{
 		db: db.DB,

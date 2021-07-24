@@ -20,7 +20,7 @@ var devEnv []byte
 //go:embed env/prd.toml
 var prdEnv []byte
 
-//Config represents configuration root.
+// Config represents configuration root.
 type Config struct {
 	AppEnv   string
 	AWS      AWS
@@ -30,7 +30,7 @@ type Config struct {
 var config *Config
 var once sync.Once
 
-//GetConfig is a function to get Configuration. This loading process occurs once in boot.
+// GetConfig is a function to get Configuration. This loading process occurs once in boot.
 func GetConfig() *Config {
 	once.Do(func() {
 		cfg, err := NewConfig()
@@ -42,7 +42,7 @@ func GetConfig() *Config {
 	return config
 }
 
-//NewConfig is a function to init and load Configuration from file or environment variables.
+// NewConfig is a function to init and load Configuration from file or environment variables.
 func NewConfig() (*Config, error) {
 	conf := &Config{}
 	conf.AppEnv = "dev"

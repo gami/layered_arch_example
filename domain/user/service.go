@@ -7,23 +7,18 @@ import (
 	"github.com/gami/layered_arch_example/domain"
 )
 
-type Service interface {
-	FindByID(ctx context.Context, id ID) (*User, error)
-	Create(ctx context.Context, u *User) (ID, error)
-}
-
-type service struct {
+type Service struct {
 	repo Repository
 	msgs domain.Messenger
 }
 
-func NewService(repo Repository) *service {
-	return &service{
+func NewService(repo Repository) *Service {
+	return &Service{
 		repo: repo,
 	}
 }
 
-func (s *service) FindByID(ctx context.Context, id ID) (*User, error) {
+func (s *Service) FindByID(ctx context.Context, id ID) (*User, error) {
 	u, err := s.repo.FindByID(ctx, id)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to fetch user id=%v", id)
@@ -32,7 +27,7 @@ func (s *service) FindByID(ctx context.Context, id ID) (*User, error) {
 	return u, nil
 }
 
-func (s *service) Create(ctx context.Context, u *User) (ID, error) {
+func (s *Service) Create(ctx context.Context, u *User) (ID, error) {
 	if err := u.Validate(); err != nil {
 		return 0, err
 	}

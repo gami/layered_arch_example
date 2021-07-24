@@ -6,39 +6,38 @@ import (
 	"net/http"
 
 	"github.com/gami/layered_arch_example/controller/build"
-	"github.com/gami/layered_arch_example/domain/profile"
 	"github.com/gami/layered_arch_example/domain/user"
 	api "github.com/gami/layered_arch_example/gen/openapi"
 )
 
 type User struct {
-	user        user.Service
-	profile     profile.Service
-	userUsecase UserUsecase
+	userQuery    UserQuery
+	profileQuery ProfileQuery
+	userUsecase  UserUsecase
 }
 
 func NewUser(
-	user user.Service,
-	profile profile.Service,
+	userQuery UserQuery,
+	profileQuery ProfileQuery,
 	userUsecase UserUsecase,
 ) *User {
 	return &User{
-		user:        user,
-		profile:     profile,
-		userUsecase: userUsecase,
+		userQuery:    userQuery,
+		profileQuery: profileQuery,
+		userUsecase:  userUsecase,
 	}
 }
 
 // GetUser processes (GET /user/{user_id})
-func (c *User) GetUser(w http.ResponseWriter, r *http.Request, userId uint64) {
+func (c *User) GetUser(w http.ResponseWriter, r *http.Request, userID uint64) {
 	ctx := context.Background()
-	u, err := c.user.FindByID(ctx, user.ID(userId))
+	u, err := c.userQuery.Find(ctx, user.ID(userID))
 	if err != nil {
 		respond500(w, err)
 		return
 	}
 
-	profile, err := c.profile.FindByUserID(ctx, u.ID)
+	profile, err := c.profileQuery.FindByUserID(ctx, u.ID)
 	if err != nil {
 		respond500(w, err)
 		return

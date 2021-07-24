@@ -7,31 +7,26 @@ import (
 	"github.com/gami/layered_arch_example/domain/user"
 )
 
-type Service interface {
-	FindByUserID(ctx context.Context, userID user.ID) (*Profile, error)
-	Create(ctx context.Context, u *Profile) (ID, error)
-}
-
-type service struct {
+type Service struct {
 	repo Repository
 }
 
-func NewService(repo Repository) *service {
-	return &service{
+func NewService(repo Repository) *Service {
+	return &Service{
 		repo: repo,
 	}
 }
 
-func (s *service) FindByUserID(ctx context.Context, userId user.ID) (*Profile, error) {
-	u, err := s.repo.FindByUserID(ctx, userId)
+func (s *Service) FindByUserID(ctx context.Context, userID user.ID) (*Profile, error) {
+	u, err := s.repo.FindByUserID(ctx, userID)
 	if err != nil {
-		return nil, errors.Wrapf(err, "failed to fetch profile user_id=%v", userId)
+		return nil, errors.Wrapf(err, "failed to fetch profile user_id=%v", userID)
 	}
 
 	return u, nil
 }
 
-func (s *service) Create(ctx context.Context, p *Profile) (ID, error) {
+func (s *Service) Create(ctx context.Context, p *Profile) (ID, error) {
 	if err := p.Validate(); err != nil {
 		return 0, err
 	}

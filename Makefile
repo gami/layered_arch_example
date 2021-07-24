@@ -29,3 +29,7 @@ run:
 test:
 	go install github.com/kyoh86/richgo
 	APP_ENV=test richgo test -cover github.com/gami/layered_arch_example/${TARGET}
+
+.PHONY: lint
+lint:
+	golangci-lint run

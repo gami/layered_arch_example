@@ -28,7 +28,7 @@
 - controller
 - repository
 ### 3rd
-スキップしてよい。Coreしか呼んではいけない
+Coreしか呼んではいけない
 - usecase
 ### Core
 どこからimportしてもよい

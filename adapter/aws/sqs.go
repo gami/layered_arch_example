@@ -16,19 +16,19 @@ import (
 
 type SQS struct {
 	sqs     *sqs.SQS
-	baseUrl string
+	baseURL string
 }
 
 func NewSQS(sess *session.Session) *SQS {
 	cfg := config.GetConfig()
 	return &SQS{
 		sqs:     sqs.New(sess),
-		baseUrl: cfg.AWS.SQSBaseURL,
+		baseURL: cfg.AWS.SQSBaseURL,
 	}
 }
 
 func (q *SQS) url(key string) string {
-	return fmt.Sprintf("%s/%s", q.baseUrl, key)
+	return fmt.Sprintf("%s/%s", q.baseURL, key)
 }
 
 func (q *SQS) Send(ctx context.Context, key string, data domain.Message) error {
@@ -81,7 +81,7 @@ func (q *SQS) RecieveUser(ctx context.Context, key string, f func(msg domain.Mes
 
 			err := u.Unmarshal(*msg.Body)
 			if err != nil {
-				fmt.Println(err) //TODO
+				fmt.Println(err) // TODO
 				return
 			}
 
@@ -93,7 +93,7 @@ func (q *SQS) RecieveUser(ctx context.Context, key string, f func(msg domain.Mes
 			}
 			_, err = q.sqs.DeleteMessageWithContext(ctx, params)
 			if err != nil {
-				fmt.Println(err) //TODO
+				fmt.Println(err) // TODO
 			}
 		}(m)
 	}

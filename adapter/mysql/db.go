@@ -31,7 +31,7 @@ const (
 )
 
 const (
-	//DefaultDBName is a real name of default DB
+	// DefaultDBName is a real name of default DB
 	DefaultDBName = "user"
 )
 

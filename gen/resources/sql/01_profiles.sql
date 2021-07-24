@@ -7,5 +7,5 @@ CREATE TABLE `profiles` (
    `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY (`id`),
    UNIQUE KEY `uq_profiles_user_id` (`user_id`),
-   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),
+   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

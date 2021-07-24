@@ -12,16 +12,20 @@ import (
 
 type User struct {
 	tx      domain.Tx
-	user    user.Service
-	profile profile.Service
+	user    UserService
+	profile ProfileService
 }
 
-func NewUser(tx domain.Tx, user user.Service, profile profile.Service) *User {
+func NewUser(tx domain.Tx, u UserService, p ProfileService) *User {
 	return &User{
 		tx:      tx,
-		user:    user,
-		profile: profile,
+		user:    u,
+		profile: p,
 	}
+}
+
+func (s *User) Find(ctx context.Context, id user.ID) (*user.User, error) {
+	return s.user.FindByID(ctx, id)
 }
 
 func (s *User) Create(ctx context.Context, input form.CreateUser) (uint64, error) {

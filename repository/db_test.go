@@ -44,7 +44,7 @@ func setup() {
 
 	db = mysql.UserDB()
 
-	tearDown() //clear DB at first
+	tearDown() // clear DB at first
 
 	loadFixtures(db, "simple")
 }
