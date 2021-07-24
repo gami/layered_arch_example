@@ -24,10 +24,6 @@ func NewUser(db *mysql.DB) *User {
 	}
 }
 
-func (r *User) Impl() {
-	var _ user.Repository = r
-}
-
 // Conn returns usually wrapped *sql.DB connection. If the context is in transaction, this returns *sql.Tx.
 func (r *User) conn(ctx context.Context) boil.ContextExecutor {
 	tx, ok := GetTx(ctx)
@@ -37,9 +33,9 @@ func (r *User) conn(ctx context.Context) boil.ContextExecutor {
 	return tx
 }
 
-func (r *User) FindByID(ctx context.Context, id uint64) (*user.User, error) {
+func (r *User) FindByID(ctx context.Context, id user.ID) (*user.User, error) {
 	s, err := schema.Users(
-		schema.UserWhere.ID.EQ(id),
+		schema.UserWhere.ID.EQ(uint64(id)),
 	).One(ctx, r.conn(ctx))
 
 	if err != nil {
@@ -48,7 +44,7 @@ func (r *User) FindByID(ctx context.Context, id uint64) (*user.User, error) {
 	return build.DomainUser(s), nil
 }
 
-func (r *User) Create(ctx context.Context, u *user.User) (uint64, error) {
+func (r *User) Create(ctx context.Context, u *user.User) (user.ID, error) {
 	s := &schema.User{
 		Name: u.Name,
 	}
@@ -56,5 +52,5 @@ func (r *User) Create(ctx context.Context, u *user.User) (uint64, error) {
 	if err != nil {
 		return 0, errors.Wrap(err, "failed to insert user")
 	}
-	return s.ID, nil
+	return user.ID(s.ID), nil
 }

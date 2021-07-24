@@ -10,7 +10,7 @@ import (
 
 func Test_service_FindByID(t *testing.T) {
 	type args struct {
-		id uint64
+		id user.ID
 	}
 	tests := []struct {
 		name    string
@@ -22,7 +22,7 @@ func Test_service_FindByID(t *testing.T) {
 		{
 			name: "Found",
 			repo: &MockRepository{
-				FindByIDFunc: func(ctx context.Context, id uint64) (*user.User, error) {
+				FindByIDFunc: func(ctx context.Context, id user.ID) (*user.User, error) {
 					return &user.User{
 						ID:   1,
 						Name: "gami",

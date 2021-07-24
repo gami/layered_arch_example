@@ -7,8 +7,10 @@ import (
 	"github.com/friendsofgo/errors"
 )
 
+type ID uint64
+
 type User struct {
-	ID   uint64
+	ID   ID
 	Name string
 }
 

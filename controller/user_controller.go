@@ -32,21 +32,22 @@ func NewUser(
 // GetUser processes (GET /user/{user_id})
 func (c *User) GetUser(w http.ResponseWriter, r *http.Request, userId uint64) {
 	ctx := context.Background()
-	user, err := c.user.FindByID(ctx, userId)
+	u, err := c.user.FindByID(ctx, user.ID(userId))
 	if err != nil {
 		respond500(w, err)
 		return
 	}
 
-	profile, err := c.profile.FindByUserID(ctx, userId)
+	profile, err := c.profile.FindByUserID(ctx, u.ID)
 	if err != nil {
 		respond500(w, err)
 		return
 	}
 
-	res := build.NewUser(user).
+	res := build.NewUser(u).
 		WithProfile(profile).
 		Build()
+
 	respondOK(w, res)
 }
 

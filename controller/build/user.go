@@ -27,7 +27,7 @@ func (b *User) Build() api.User {
 
 func fromDomainUser(m *user.User) api.User {
 	return api.User{
-		Id:   m.ID,
+		Id:   uint64(m.ID),
 		Name: m.Name,
 	}
 }

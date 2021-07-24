@@ -4,11 +4,12 @@ import (
 	"context"
 
 	"github.com/friendsofgo/errors"
+	"github.com/gami/layered_arch_example/domain/user"
 )
 
 type Service interface {
-	FindByUserID(ctx context.Context, userID uint64) (*Profile, error)
-	Create(ctx context.Context, u *Profile) (uint64, error)
+	FindByUserID(ctx context.Context, userID user.ID) (*Profile, error)
+	Create(ctx context.Context, u *Profile) (ID, error)
 }
 
 type service struct {
@@ -21,7 +22,7 @@ func NewService(repo Repository) *service {
 	}
 }
 
-func (s *service) FindByUserID(ctx context.Context, userId uint64) (*Profile, error) {
+func (s *service) FindByUserID(ctx context.Context, userId user.ID) (*Profile, error) {
 	u, err := s.repo.FindByUserID(ctx, userId)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to fetch profile user_id=%v", userId)
@@ -30,7 +31,7 @@ func (s *service) FindByUserID(ctx context.Context, userId uint64) (*Profile, er
 	return u, nil
 }
 
-func (s *service) Create(ctx context.Context, p *Profile) (uint64, error) {
+func (s *service) Create(ctx context.Context, p *Profile) (ID, error) {
 	if err := p.Validate(); err != nil {
 		return 0, err
 	}
@@ -39,8 +40,6 @@ func (s *service) Create(ctx context.Context, p *Profile) (uint64, error) {
 	if err != nil {
 		return 0, errors.Wrapf(err, "failed to create profile id=%v", id)
 	}
-
-	p.ID = id
 
 	return id, nil
 }

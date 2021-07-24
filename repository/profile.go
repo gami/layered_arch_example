@@ -6,6 +6,7 @@ import (
 
 	"github.com/gami/layered_arch_example/adapter/mysql"
 	"github.com/gami/layered_arch_example/domain/profile"
+	"github.com/gami/layered_arch_example/domain/user"
 	"github.com/gami/layered_arch_example/gen/schema"
 	"github.com/gami/layered_arch_example/repository/build"
 	"github.com/pkg/errors"
@@ -31,18 +32,18 @@ func (r *Profile) conn(ctx context.Context) boil.ContextExecutor {
 	return tx
 }
 
-func (r *Profile) FindByUserID(ctx context.Context, id uint64) (*profile.Profile, error) {
+func (r *Profile) FindByUserID(ctx context.Context, userID user.ID) (*profile.Profile, error) {
 	s, err := schema.Profiles(
-		schema.UserWhere.ID.EQ(id),
+		schema.UserWhere.ID.EQ(uint64(userID)),
 	).One(ctx, r.conn(ctx))
 
 	if err != nil {
-		return nil, errors.Wrapf(err, "failed to query profile id=%v", id)
+		return nil, errors.Wrapf(err, "failed to query profile user_id=%v", userID)
 	}
 	return build.DomainProfile(s), nil
 }
 
-func (r *Profile) Create(ctx context.Context, u *profile.Profile) (uint64, error) {
+func (r *Profile) Create(ctx context.Context, u *profile.Profile) (profile.ID, error) {
 	s := &schema.Profile{
 		Hobby: StringMayNull(u.Hobby),
 	}
@@ -50,5 +51,5 @@ func (r *Profile) Create(ctx context.Context, u *profile.Profile) (uint64, error
 	if err != nil {
 		return 0, errors.Wrap(err, "failed to insert profile")
 	}
-	return s.ID, nil
+	return profile.ID(s.ID), nil
 }

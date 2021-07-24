@@ -8,8 +8,8 @@ import (
 )
 
 type Service interface {
-	FindByID(ctx context.Context, id uint64) (*User, error)
-	Create(ctx context.Context, u *User) (uint64, error)
+	FindByID(ctx context.Context, id ID) (*User, error)
+	Create(ctx context.Context, u *User) (ID, error)
 }
 
 type service struct {
@@ -23,7 +23,7 @@ func NewService(repo Repository) *service {
 	}
 }
 
-func (s *service) FindByID(ctx context.Context, id uint64) (*User, error) {
+func (s *service) FindByID(ctx context.Context, id ID) (*User, error) {
 	u, err := s.repo.FindByID(ctx, id)
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to fetch user id=%v", id)
@@ -32,7 +32,7 @@ func (s *service) FindByID(ctx context.Context, id uint64) (*User, error) {
 	return u, nil
 }
 
-func (s *service) Create(ctx context.Context, u *User) (uint64, error) {
+func (s *service) Create(ctx context.Context, u *User) (ID, error) {
 	if err := u.Validate(); err != nil {
 		return 0, err
 	}

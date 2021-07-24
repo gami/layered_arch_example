@@ -8,14 +8,14 @@ import (
 )
 
 type MockRepository struct {
-	FindByIDFunc func(ctx context.Context, id uint64) (*user.User, error)
-	CreateFunc   func(ctx context.Context, u *user.User) (uint64, error)
+	FindByIDFunc func(ctx context.Context, id user.ID) (*user.User, error)
+	CreateFunc   func(ctx context.Context, u *user.User) (user.ID, error)
 }
 
-func (m *MockRepository) FindByID(ctx context.Context, id uint64) (*user.User, error) {
+func (m *MockRepository) FindByID(ctx context.Context, id user.ID) (*user.User, error) {
 	return m.FindByIDFunc(ctx, id)
 }
-func (m *MockRepository) Create(ctx context.Context, u *user.User) (uint64, error) {
+func (m *MockRepository) Create(ctx context.Context, u *user.User) (user.ID, error) {
 	return m.CreateFunc(ctx, u)
 }
 
