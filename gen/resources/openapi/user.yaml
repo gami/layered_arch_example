@@ -3,6 +3,18 @@ info:
   title: Example API
   version: 1.0.0
 paths:
+  /health:
+    get:
+      tags:
+        - system
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OK'
   "/user/{user_id}":
     get:
       tags:
@@ -74,6 +86,14 @@ paths:
                 - name
 components:
   schemas:
+    OK:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: "OK"
     Created:
       type: object
       required:

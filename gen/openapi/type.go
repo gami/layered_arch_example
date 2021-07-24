@@ -14,6 +14,11 @@ type Error struct {
 	Message string `json:"message"`
 }
 
+// OK defines model for OK.
+type OK struct {
+	Message string `json:"message"`
+}
+
 // Profile defines model for Profile.
 type Profile struct {
 
@@ -47,4 +52,3 @@ type CreateUserJSONBody struct {
 
 // CreateUserJSONRequestBody defines body for CreateUser for application/json ContentType.
 type CreateUserJSONRequestBody CreateUserJSONBody
-

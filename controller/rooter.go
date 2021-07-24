@@ -1,7 +1,9 @@
 package controller
 
 import (
+	"log"
 	"net/http"
+	"runtime"
 
 	validator "github.com/deepmap/oapi-codegen/pkg/chi-middleware"
 	api "github.com/gami/layered_arch_example/gen/openapi"
@@ -18,6 +20,7 @@ func NewRouter() (*chi.Mux, error) {
 
 	r := chi.NewRouter()
 	r.Use(recoverer)
+	r.Use(middleware.Compress(5))
 	r.Use(middleware.RequestID)
 	r.Use(validator.OapiRequestValidator(swagger))
 
@@ -27,11 +30,22 @@ func NewRouter() (*chi.Mux, error) {
 func recoverer(next http.Handler) http.Handler {
 	f := func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
-			if rv := recover(); rv != nil {
-				// log
+			if err := recover(); err != nil {
+				// TODO
+				log.Printf("[ERROR] %s\n", err)
+				for depth := 0; ; depth++ {
+					_, file, line, ok := runtime.Caller(depth)
+					if !ok {
+						break
+					}
+					log.Printf("======> %d: %v:%d", depth, file, line)
+				}
+
+				respondError(w, errors.New("panic"))
 				http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			}
 		}()
+
 		next.ServeHTTP(w, r)
 	}
 

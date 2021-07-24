@@ -11,11 +11,13 @@ import (
 
 type Controller struct {
 	*User
+	*Health
 }
 
 func NewController(u *User) *Controller {
 	return &Controller{
-		User: u,
+		Health: NewHealth(),
+		User:   u,
 	}
 }
 
@@ -35,16 +37,16 @@ func respondError(w http.ResponseWriter, err error) {
 		// TODO log info
 		switch ae.Code {
 		case failure.ErrInvalid:
-			w.WriteHeader(400)
+			w.WriteHeader(http.StatusBadRequest)
 		case failure.ErrForbidden:
-			w.WriteHeader(403)
+			w.WriteHeader(http.StatusForbidden)
 		case failure.ErrNotFound:
-			w.WriteHeader(404)
+			w.WriteHeader(http.StatusNotFound)
 		case failure.ErrConflict:
-			w.WriteHeader(409)
+			w.WriteHeader(http.StatusConflict)
 		default:
 			// TOOD log unknown code
-			w.WriteHeader(500)
+			w.WriteHeader(http.StatusInternalServerError)
 		}
 
 		_ = json.NewEncoder(w).Encode(build.Error(err))

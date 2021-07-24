@@ -14,6 +14,9 @@ import (
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 
+	// (GET /health)
+	GetHealth(w http.ResponseWriter, r *http.Request)
+
 	// (GET /user/{user_id})
 	GetUser(w http.ResponseWriter, r *http.Request, userId uint64)
 
@@ -28,6 +31,21 @@ type ServerInterfaceWrapper struct {
 }
 
 type MiddlewareFunc func(http.HandlerFunc) http.HandlerFunc
+
+// GetHealth operation middleware
+func (siw *ServerInterfaceWrapper) GetHealth(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	var handler = func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetHealth(w, r)
+	}
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler(w, r.WithContext(ctx))
+}
 
 // GetUser operation middleware
 func (siw *ServerInterfaceWrapper) GetUser(w http.ResponseWriter, r *http.Request) {
@@ -108,6 +126,9 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 	}
 
 	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/health", wrapper.GetHealth)
+	})
+	r.Group(func(r chi.Router) {
 		r.Get(options.BaseURL+"/user/{user_id}", wrapper.GetUser)
 	})
 	r.Group(func(r chi.Router) {
@@ -116,4 +137,3 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 
 	return r
 }
-

@@ -18,17 +18,17 @@ import (
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/8RVwU7cPBB+FTT/f4xItoUefKMVahGV4MIJocoks1nTxHZtLwVFOaS30gOteISqEpde",
-	"Wqnq+0RUPEY1zmbJKikLEmovxEwy3/fNfDPeAmKVayVROgusABtPMOf++Mwgd5jQURul0TiB/oXwMTzh",
-	"uc4Q2CiAsTI5d8BgKqR7sgYBuFONwEBIhykaKAPI0Vqe4kIq7GzffGudETKFsgzA4JupMMS9T2w3yQfz",
-	"r9XhEcaOgDeNUaavcpBvSx7zTCQrGyad5ijdUvbbiHeNGosM+9QTdXh4SocEbWyEdkJJYHD94/PVp+8Q",
-	"dPTU1dn1+cXV14919aWuzut3Z31FAWjTB6urb3V1WVcXdXW5APkCs0wN1tUrYM+i+ZO9i2wiQenEWKDp",
-	"ct3Reclz7EP6aFd4ynMxXP28zf8bHAOD/8KboQ1nExu2bgzOz4ysheq7SVlCjhWxOOG8oM1G2srG7hYE",
-	"cIzGNspHq9FqRMqURsm1AAaPfSgAzd3ENzGcWjRhQX9fiaSkUIqOHtRqTj3YSoDBc3TeBUo1PEeHxgLb",
-	"L0AQE8G16hnMwKBbnzNTDGZbS+jL/SgPKN9qJW3j96MookespKONYAVwrTMRe5HhkaWaiw7FbSb4Wnwz",
-	"F83e2aZ+rUVrD8bUbP0AVbvivF1xP/o8pbb6FsIBRbxBvn6t7IAxze0384b6jdY9VcnpvQq407XQhLub",
-	"8Ov9h+uzn3Tt8ZOXKFM3AbYeRQO7cb/V6sCNCC4Xcv7/sovQYw7tTdkbp9GDmdz+BA3YPH9FYxX9i7EK",
-	"YP1vEO/J11K9lYNjXJa/AwAA//+ifD5mwAcAAA==",
+	"H4sIAAAAAAAC/8RVTW/TPhj/KtPz/x+tJYWNQ24DTWwa0nbZCU3Ia56mHoltbHesqnIIN8ZhoH0EhLQL",
+	"F5AQ3yca2sdAj9N0qZK1nTTg0rhO/PxenhdPoK8yrSRKZyGagO0PMeN++cwgdxjTUhul0TiB/oXwe3jG",
+	"M50iRD0GA2Uy7iCCkZDuyQYwcGONEIGQDhM0kDPI0Fqe4NxR2N+7/dY6I2QCec7A4JuRMIT9ktBuDx/N",
+	"vlbHJ9h3FHjbGGXaLDvxduUpT0W8tmWSUYbSLUVfBLy/tyLqCioX4RwYNRAptsGG6vh4TIsYbd8I7YSS",
+	"EMHNj8/Xn74DazAoi/Obi8vrrx/L4ktZXJTvztuMGGjTDlYW38riqiwuy+JqLuQOpqnq1NUScGjR3FVG",
+	"82giRunEQKBpYq1YYZJn2A7pd5vEE56JbvUzm/83OIAI/gtumyOYdkZQZ6OzTqdgdah2NumUkANFKE44",
+	"T2i7ora2dbALDE7R2Ip5bz1cD4mZ0ii5FhDBY7/FQHM39CYGQ+SpG9IyQUcPspiT9t0YIniObqf6gtha",
+	"raSt3H8UhvToK+moD6IJcK1T0fdHgxNLDOpxsMyS/b1K2LzxfpeB44klf+zYOszgiPaCkUUTTOj3lYjz",
+	"Rex97ZBgwzN0aCjWBAQBkAm15xFMg0EzK86MkDVELK+i/OgP+uS13OEUg41w48GQqpnYAVUPQF4PwGaK",
+	"yMJGgrx+rWxHYqq7YZob8hute6ri8b0ErDTMqu1m//56/+Hm/CddCvzsBcqEqn8zDDs6+n4DoRGuR+Ey",
+	"IWf/l41vH7Or2/NWOfUeLMn1Bd2R5tkrKqvwX5QVg82/AXwoX0v1VnaWcZ7/DgAA///jTN813ggAAA==",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
@@ -102,4 +102,3 @@ func GetSwagger() (swagger *openapi3.T, err error) {
 	}
 	return
 }
-

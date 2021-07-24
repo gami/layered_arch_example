@@ -28,14 +28,14 @@ linters:
 
 linters-settings:
   cyclop:
-    max-complexity: 24
+    max-complexity: 40
   govet:
     check-shadowing: true
   gocritic:
     enabled-tags:
       - opinionated
   gocognit:
-    min-complexity: 24
+    min-complexity: 40
   nestif:
     min-complexity: 5
   goconst:
