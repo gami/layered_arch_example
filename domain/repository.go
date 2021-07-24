@@ -1,6 +1,8 @@
 package domain
 
-import "context"
+import (
+	"context"
+)
 
 // Tx is a interface of Transaction for Database.
 type Tx interface {

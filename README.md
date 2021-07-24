@@ -16,6 +16,28 @@
 ### cons
 - DB -> Domain -> APIResponseなどの詰め替えが発生する
 
+## レイヤー構成と所属するパッケージ
+### 1st
+外部とのアダプタ
+- cmd (main)
+- adapter
+  - mysql
+  - aws
+### 2nd
+リクエストやSQLを処理する
+- controller
+- repository
+### 3rd
+スキップしてよい。Coreしか呼んではいけない
+- usecase
+### Core
+どこからimportしてもよい
+- domain 
+### レイヤーに属さない
+- di
+- config
+ pkg
+
 ## ディレクトリ構成
 
 ```
@@ -25,6 +47,7 @@
 │       ├── reposiotry.go ... Repositoryのinterface
 │       ├── service.go ... Domainサービス。Repositoryを呼び出したり、複雑な処理をおこなう。
 │       └── user.go ... Domainモデル。データとそのデータの仕様に基づくロジックを持つ。
+├── usecase ... 複数のサービスにまたがる複雑な処理を受け持つ
 ├── Makefile
 ├── README.md
 ├── client ... AWS/HTTP/Slack/Twitterなどの外部サービスのAPIを呼び出す

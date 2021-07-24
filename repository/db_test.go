@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gami/layered_arch_example/mysql"
+	"github.com/gami/layered_arch_example/adapter/mysql"
 	"gopkg.in/testfixtures.v2"
 )
 

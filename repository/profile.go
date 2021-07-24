@@ -4,9 +4,9 @@ import (
 	"context"
 	"database/sql"
 
+	"github.com/gami/layered_arch_example/adapter/mysql"
 	"github.com/gami/layered_arch_example/domain/profile"
 	"github.com/gami/layered_arch_example/gen/schema"
-	"github.com/gami/layered_arch_example/mysql"
 	"github.com/gami/layered_arch_example/repository/build"
 	"github.com/pkg/errors"
 	"github.com/volatiletech/sqlboiler/v4/boil"

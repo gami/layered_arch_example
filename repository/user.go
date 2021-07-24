@@ -2,31 +2,37 @@ package repository
 
 import (
 	"context"
-	"database/sql"
 
+	"github.com/gami/layered_arch_example/adapter/mysql"
 	"github.com/gami/layered_arch_example/domain/user"
 	"github.com/gami/layered_arch_example/gen/schema"
-	"github.com/gami/layered_arch_example/mysql"
 	"github.com/gami/layered_arch_example/repository/build"
 	"github.com/pkg/errors"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 )
 
 type User struct {
-	db *sql.DB
+	db *mysql.DB
 }
 
-func NewUser(db *mysql.DB) user.Repository {
+// build error will occur if User does not implement user.Repository.
+var _ user.Repository = &User{}
+
+func NewUser(db *mysql.DB) *User {
 	return &User{
-		db: db.DB,
+		db: db,
 	}
+}
+
+func (r *User) Impl() {
+	var _ user.Repository = r
 }
 
 // Conn returns usually wrapped *sql.DB connection. If the context is in transaction, this returns *sql.Tx.
 func (r *User) conn(ctx context.Context) boil.ContextExecutor {
 	tx, ok := GetTx(ctx)
 	if !ok {
-		return r.db
+		return r.db.DB
 	}
 	return tx
 }

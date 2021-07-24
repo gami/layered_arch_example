@@ -12,20 +12,20 @@ import (
 )
 
 type User struct {
-	user       user.Service
-	profile    profile.Service
-	createUser CreateUser
+	user        user.Service
+	profile     profile.Service
+	userUsecase UserUsecase
 }
 
 func NewUser(
 	user user.Service,
 	profile profile.Service,
-	createUser CreateUser,
+	userUsecase UserUsecase,
 ) *User {
 	return &User{
-		user:       user,
-		profile:    profile,
-		createUser: createUser,
+		user:        user,
+		profile:     profile,
+		userUsecase: userUsecase,
 	}
 }
 
@@ -60,7 +60,7 @@ func (c *User) CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id, err := c.createUser.Do(ctx, build.ToCreateUserInput(body))
+	id, err := c.userUsecase.Create(ctx, build.ToCreateUser(body))
 
 	if err != nil {
 		respond500(w, err)

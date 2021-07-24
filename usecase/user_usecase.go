@@ -7,28 +7,24 @@ import (
 	"github.com/gami/layered_arch_example/domain"
 	"github.com/gami/layered_arch_example/domain/profile"
 	"github.com/gami/layered_arch_example/domain/user"
+	"github.com/gami/layered_arch_example/usecase/form"
 )
 
-type CreateUserInput struct {
-	Name  string
-	Hobby string
-}
-
-type CreateUser struct {
+type User struct {
 	tx      domain.Tx
 	user    user.Service
 	profile profile.Service
 }
 
-func NewCreateUser(tx domain.Tx, user user.Service, profile profile.Service) *CreateUser {
-	return &CreateUser{
+func NewUser(tx domain.Tx, user user.Service, profile profile.Service) *User {
+	return &User{
 		tx:      tx,
 		user:    user,
 		profile: profile,
 	}
 }
 
-func (s *CreateUser) Do(ctx context.Context, input *CreateUserInput) (uint64, error) {
+func (s *User) Create(ctx context.Context, input form.CreateUser) (uint64, error) {
 	u := &user.User{
 		Name: input.Name,
 	}

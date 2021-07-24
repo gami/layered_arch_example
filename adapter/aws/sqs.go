@@ -19,7 +19,7 @@ type SQS struct {
 	baseUrl string
 }
 
-func NewSQS(sess *session.Session) domain.Messenger {
+func NewSQS(sess *session.Session) *SQS {
 	cfg := config.GetConfig()
 	return &SQS{
 		sqs:     sqs.New(sess),

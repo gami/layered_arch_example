@@ -6,6 +6,6 @@ func InjectUserController() *controller.User {
 	return controller.NewUser(
 		InjectUserService(),
 		InjectProfileService(),
-		InjectCreateUserUsecase(),
+		InjectUserUsecase(),
 	)
 }
