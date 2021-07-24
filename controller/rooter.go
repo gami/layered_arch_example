@@ -3,8 +3,9 @@ package controller
 import (
 	"net/http"
 
-	middleware "github.com/deepmap/oapi-codegen/pkg/chi-middleware"
+	validator "github.com/deepmap/oapi-codegen/pkg/chi-middleware"
 	api "github.com/gami/layered_arch_example/gen/openapi"
+	middleware "github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/pkg/errors"
 )
@@ -17,7 +18,8 @@ func NewRouter() (*chi.Mux, error) {
 
 	r := chi.NewRouter()
 	r.Use(recoverer)
-	r.Use(middleware.OapiRequestValidator(swagger))
+	r.Use(middleware.RequestID)
+	r.Use(validator.OapiRequestValidator(swagger))
 
 	return r, nil
 }

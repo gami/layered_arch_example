@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/friendsofgo/errors"
+	"github.com/gami/layered_arch_example/domain/failure"
 	"github.com/gami/layered_arch_example/domain/user"
 )
 
@@ -28,7 +29,7 @@ func (s *Service) FindByUserID(ctx context.Context, userID user.ID) (*Profile, e
 
 func (s *Service) Create(ctx context.Context, p *Profile) (ID, error) {
 	if err := p.Validate(); err != nil {
-		return 0, err
+		return 0, failure.Invalid(err)
 	}
 
 	id, err := s.repo.Create(ctx, p)

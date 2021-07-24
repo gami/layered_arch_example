@@ -5,6 +5,7 @@ import (
 
 	"github.com/friendsofgo/errors"
 	"github.com/gami/layered_arch_example/domain"
+	"github.com/gami/layered_arch_example/domain/failure"
 )
 
 type Service struct {
@@ -29,7 +30,7 @@ func (s *Service) FindByID(ctx context.Context, id ID) (*User, error) {
 
 func (s *Service) Create(ctx context.Context, u *User) (ID, error) {
 	if err := u.Validate(); err != nil {
-		return 0, err
+		return 0, failure.Invalid(err)
 	}
 
 	id, err := s.repo.Create(ctx, u)

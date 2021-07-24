@@ -1,6 +1,10 @@
 package profile
 
-import "github.com/gami/layered_arch_example/domain/user"
+import (
+	"errors"
+
+	"github.com/gami/layered_arch_example/domain/user"
+)
 
 type ID uint64
 
@@ -11,5 +15,13 @@ type Profile struct {
 }
 
 func (p *Profile) Validate() error {
+	if p.UserID < 1 {
+		return errors.New("profile.user_id must not be zero")
+	}
+
+	if len(p.Hobby) > 1000 {
+		return errors.New("profile.hobby is too long")
+	}
+
 	return nil
 }

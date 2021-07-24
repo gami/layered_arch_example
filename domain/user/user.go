@@ -15,6 +15,10 @@ type User struct {
 }
 
 func (u *User) Validate() error {
+	if len(u.Name) > 255 {
+		return errors.New("user.Name is too long")
+	}
+
 	return nil
 }
 

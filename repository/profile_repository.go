@@ -3,8 +3,10 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"fmt"
 
 	"github.com/gami/layered_arch_example/adapter/mysql"
+	"github.com/gami/layered_arch_example/domain/failure"
 	"github.com/gami/layered_arch_example/domain/profile"
 	"github.com/gami/layered_arch_example/domain/user"
 	"github.com/gami/layered_arch_example/gen/schema"
@@ -41,8 +43,10 @@ func (r *Profile) FindByUserID(ctx context.Context, userID user.ID) (*profile.Pr
 		schema.UserWhere.ID.EQ(uint64(userID)),
 	).One(ctx, r.conn(ctx))
 
-	if err != nil {
-		return nil, errors.Wrapf(err, "failed to query profile user_id=%v", userID)
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil, failure.NotFound(fmt.Errorf("misssing profile user_id=%d", userID))
+	} else if err != nil {
+		return nil, errors.Wrapf(err, "failed to query profile user_id=%d", userID)
 	}
 
 	return build.DomainProfile(s), nil

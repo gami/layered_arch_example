@@ -2,8 +2,11 @@ package repository
 
 import (
 	"context"
+	"database/sql"
+	"fmt"
 
 	"github.com/gami/layered_arch_example/adapter/mysql"
+	"github.com/gami/layered_arch_example/domain/failure"
 	"github.com/gami/layered_arch_example/domain/user"
 	"github.com/gami/layered_arch_example/gen/schema"
 	"github.com/gami/layered_arch_example/repository/build"
@@ -39,8 +42,10 @@ func (r *User) FindByID(ctx context.Context, id user.ID) (*user.User, error) {
 		schema.UserWhere.ID.EQ(uint64(id)),
 	).One(ctx, r.conn(ctx))
 
-	if err != nil {
-		return nil, errors.Wrapf(err, "failed to query user id=%v", id)
+	if errors.Is(err, sql.ErrNoRows) {
+		return nil, failure.NotFound(fmt.Errorf("misssing user id=%d", id))
+	} else if err != nil {
+		return nil, errors.Wrapf(err, "failed to query user id=%d", id)
 	}
 
 	return build.DomainUser(s), nil
