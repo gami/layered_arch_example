@@ -12,6 +12,7 @@ func Test_service_FindByID(t *testing.T) {
 	type args struct {
 		id user.ID
 	}
+
 	tests := []struct {
 		name    string
 		repo    user.Repository
@@ -39,6 +40,7 @@ func Test_service_FindByID(t *testing.T) {
 			wantErr: false,
 		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			ctx := context.Background()
@@ -46,6 +48,7 @@ func Test_service_FindByID(t *testing.T) {
 			got, err := s.FindByID(ctx, tt.args.id)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("service.FindByID() error = %v, wantErr %v", err, tt.wantErr)
+
 				return
 			}
 

@@ -27,15 +27,18 @@ func init() {
 	if err != nil {
 		loc = time.FixedZone(localTimezone, localTimeDiffHours*60*60)
 	}
+
 	time.Local = loc
 }
 
 func TestMain(m *testing.M) {
 	setup()
+
 	code := m.Run()
 	if code == 0 {
 		tearDown()
 	}
+
 	os.Exit(code)
 }
 
@@ -61,6 +64,7 @@ func truncateDB(db *mysql.DB, tables []string) {
 		if err != nil {
 			panic(err)
 		}
+
 		_, err = db.Query(fmt.Sprintf("ALTER TABLE %v AUTO_INCREMENT = 1", table))
 		if err != nil {
 			panic(err)
@@ -71,9 +75,11 @@ func truncateDB(db *mysql.DB, tables []string) {
 func loadFixtures(db *mysql.DB, name string) {
 	folder := fmt.Sprintf("testdata/fixture/%v", name)
 	fixtures, err := testfixtures.NewFolder(db.DB, &testfixtures.MySQL{}, folder)
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	if err := fixtures.Load(); err != nil {
 		log.Fatal(err)
 	}

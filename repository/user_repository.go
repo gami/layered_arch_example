@@ -30,6 +30,7 @@ func (r *User) conn(ctx context.Context) boil.ContextExecutor {
 	if !ok {
 		return r.db.DB
 	}
+
 	return tx
 }
 
@@ -41,6 +42,7 @@ func (r *User) FindByID(ctx context.Context, id user.ID) (*user.User, error) {
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to query user id=%v", id)
 	}
+
 	return build.DomainUser(s), nil
 }
 
@@ -48,9 +50,11 @@ func (r *User) Create(ctx context.Context, u *user.User) (user.ID, error) {
 	s := &schema.User{
 		Name: u.Name,
 	}
+
 	err := s.Insert(ctx, r.conn(ctx), boil.Infer())
 	if err != nil {
 		return 0, errors.Wrap(err, "failed to insert user")
 	}
+
 	return user.ID(s.ID), nil
 }

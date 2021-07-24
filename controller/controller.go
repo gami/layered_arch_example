@@ -23,6 +23,7 @@ func respondOK(w http.ResponseWriter, result interface{}) {
 	if err != nil {
 		w.WriteHeader(500)
 		_ = json.NewEncoder(w).Encode(build.Error(err))
+
 		return
 	}
 }

@@ -21,6 +21,7 @@ type SQS struct {
 
 func NewSQS(sess *session.Session) *SQS {
 	cfg := config.GetConfig()
+
 	return &SQS{
 		sqs:     sqs.New(sess),
 		baseURL: cfg.AWS.SQSBaseURL,
@@ -74,6 +75,7 @@ func (q *SQS) RecieveUser(ctx context.Context, key string, f func(msg domain.Mes
 	var wg sync.WaitGroup
 	for _, m := range res.Messages {
 		wg.Add(1)
+
 		go func(msg *sqs.Message) {
 			defer wg.Done()
 
@@ -82,6 +84,7 @@ func (q *SQS) RecieveUser(ctx context.Context, key string, f func(msg domain.Mes
 			err := u.Unmarshal(*msg.Body)
 			if err != nil {
 				fmt.Println(err) // TODO
+
 				return
 			}
 
@@ -92,6 +95,7 @@ func (q *SQS) RecieveUser(ctx context.Context, key string, f func(msg domain.Mes
 				ReceiptHandle: msg.ReceiptHandle,
 			}
 			_, err = q.sqs.DeleteMessageWithContext(ctx, params)
+
 			if err != nil {
 				fmt.Println(err) // TODO
 			}

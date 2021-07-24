@@ -39,6 +39,7 @@ func GetConfig() *Config {
 		}
 		config = cfg
 	})
+
 	return config
 }
 
@@ -56,7 +57,7 @@ func NewConfig() (*Config, error) {
 
 	err = loadFromTomlEnv(conf)
 	if err != nil {
-		return nil, fmt.Errorf("fail loadFromToml by env : %v : env=%v", err, conf.AppEnv)
+		return nil, errors.Wrapf(err, "fail loadFromToml env=%v", conf.AppEnv)
 	}
 
 	loadDatabaseConfig(conf)
@@ -67,8 +68,9 @@ func NewConfig() (*Config, error) {
 func loadFromToml(tml []byte, conf *Config) error {
 	_, err := toml.DecodeReader(bytes.NewBuffer(tml), conf)
 	if err != nil {
-		return fmt.Errorf("fail to decode toml : %v", err)
+		return errors.Wrap(err, "fail to decode toml")
 	}
+
 	return nil
 }
 

@@ -32,6 +32,7 @@ func (r *Profile) conn(ctx context.Context) boil.ContextExecutor {
 	if !ok {
 		return r.db
 	}
+
 	return tx
 }
 
@@ -43,6 +44,7 @@ func (r *Profile) FindByUserID(ctx context.Context, userID user.ID) (*profile.Pr
 	if err != nil {
 		return nil, errors.Wrapf(err, "failed to query profile user_id=%v", userID)
 	}
+
 	return build.DomainProfile(s), nil
 }
 
@@ -50,9 +52,11 @@ func (r *Profile) Create(ctx context.Context, u *profile.Profile) (profile.ID, e
 	s := &schema.Profile{
 		Hobby: StringMayNull(u.Hobby),
 	}
+
 	err := s.Insert(ctx, r.conn(ctx), boil.Infer())
 	if err != nil {
 		return 0, errors.Wrap(err, "failed to insert profile")
 	}
+
 	return profile.ID(s.ID), nil
 }

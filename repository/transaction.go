@@ -40,6 +40,7 @@ func (t *DBTx) Transact(ctx context.Context, process func(context.Context) (inte
 
 	txs := make([]*sql.Tx, 0, len(t.dbs))
 	defer t.clear(ctx)
+
 	for _, db := range t.dbs {
 		tx, err := db.BeginTx(ctx, &sql.TxOptions{})
 		if err != nil {
@@ -64,6 +65,7 @@ func (t *DBTx) Transact(ctx context.Context, process func(context.Context) (inte
 		if errR != nil {
 			err = errors.Wrap(err, fmt.Sprintf("rollback err = %v", errR))
 		}
+
 		return nil, err
 	}
 
@@ -80,9 +82,11 @@ func rollback(txs []*sql.Tx) error {
 	for _, tx := range txs {
 		err = tx.Rollback()
 	}
+
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -94,14 +98,17 @@ func GetTx(ctx context.Context) (*sql.Tx, bool) {
 // InTransaction returns if given context has transactions.
 func InTransaction(ctx context.Context) bool {
 	_, res := getTx(ctx, txKeyTag)
+
 	return res
 }
 
 func getTx(ctx context.Context, key txKey) (*sql.Tx, bool) {
 	v := ctx.Value(key)
+
 	tx, ok := v.(*sql.Tx)
 	if !ok {
 		return nil, false
 	}
+
 	return tx, true
 }

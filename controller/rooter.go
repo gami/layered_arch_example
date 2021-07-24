@@ -18,6 +18,7 @@ func NewRouter() (*chi.Mux, error) {
 	r := chi.NewRouter()
 	r.Use(recoverer)
 	r.Use(middleware.OapiRequestValidator(swagger))
+
 	return r, nil
 }
 
@@ -31,5 +32,6 @@ func recoverer(next http.Handler) http.Handler {
 		}()
 		next.ServeHTTP(w, r)
 	}
+
 	return http.HandlerFunc(f)
 }

@@ -5,10 +5,29 @@ linters:
     - revive
     - govet
     - gocritic
+    - asciicheck
+    - bodyclose
+    - errorlint
+    - durationcheck
+    - exhaustive
+    - dupl
+    - exportloopref
+    - unconvert
+    - testpackage
+    - wastedassign
+    - predeclared
+    - nolintlint
+    - noctx
+    - makezero
+    - gosec
+    - forcetypeassert
+    - goconst
+    - tagliatelle
+    - unparam
 
 linters-settings:
   cyclop:
-    max-complexity: 20
+    max-complexity: 24
   govet:
     check-shadowing: true
   gocritic:

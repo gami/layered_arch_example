@@ -45,6 +45,7 @@ func init() {
 	err := connectUserDB()
 	if err != nil {
 		log.Println(err)
+
 		return
 	}
 }
@@ -54,7 +55,9 @@ func connect(connStr string) (*sql.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	setupDBConns(db)
+
 	return db, nil
 }
 
@@ -79,10 +82,12 @@ func connectUserDB() error {
 	if err != nil {
 		return errors.Wrap(err, "db connect failed")
 	}
+
 	db = &DB{
 		DB:   c,
 		Name: DefaultDBName,
 	}
+
 	return nil
 }
 

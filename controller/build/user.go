@@ -18,6 +18,7 @@ func NewUser(u *user.User) *User {
 
 func (b *User) WithProfile(p *profile.Profile) *User {
 	b.user.Profile = fromDomainProfile(p)
+
 	return b
 }
 

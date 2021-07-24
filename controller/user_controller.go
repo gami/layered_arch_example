@@ -32,14 +32,17 @@ func NewUser(
 func (c *User) GetUser(w http.ResponseWriter, r *http.Request, userID uint64) {
 	ctx := context.Background()
 	u, err := c.userQuery.Find(ctx, user.ID(userID))
+
 	if err != nil {
 		respond500(w, err)
+
 		return
 	}
 
 	profile, err := c.profileQuery.FindByUserID(ctx, u.ID)
 	if err != nil {
 		respond500(w, err)
+
 		return
 	}
 
@@ -57,6 +60,7 @@ func (c *User) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var body *api.CreateUserJSONRequestBody
 	if err := json.NewDecoder(r.Body).Decode(body); err != nil {
 		respond500(w, err)
+
 		return
 	}
 
@@ -64,6 +68,7 @@ func (c *User) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		respond500(w, err)
+
 		return
 	}
 
