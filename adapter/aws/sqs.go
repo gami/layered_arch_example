@@ -5,12 +5,11 @@ import (
 	"fmt"
 	"sync"
 
+	"app/config"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
-	"github.com/gami/layered_arch_example/config"
-	"github.com/gami/layered_arch_example/domain"
-	"github.com/gami/layered_arch_example/domain/user"
 	"github.com/pkg/errors"
 )
 
@@ -24,7 +23,7 @@ func NewSQS(sess *session.Session) *SQS {
 
 	return &SQS{
 		sqs:     sqs.New(sess),
-		baseURL: cfg.AWS.SQSBaseURL,
+		baseURL: cfg.AWS.SQS.BaseURL,
 	}
 }
 
@@ -32,14 +31,9 @@ func (q *SQS) url(key string) string {
 	return fmt.Sprintf("%s/%s", q.baseURL, key)
 }
 
-func (q *SQS) Send(ctx context.Context, key string, data domain.Message) error {
-	s, err := data.Marshal()
-	if err != nil {
-		return err
-	}
-
+func (q *SQS) Send(ctx context.Context, key string, data string) error {
 	params := &sqs.SendMessageInput{
-		MessageBody:  aws.String(s),
+		MessageBody:  aws.String(data),
 		QueueUrl:     aws.String(q.url(key)),
 		DelaySeconds: aws.Int64(1),
 	}
@@ -54,7 +48,7 @@ func (q *SQS) Send(ctx context.Context, key string, data domain.Message) error {
 	return nil
 }
 
-func (q *SQS) RecieveUser(ctx context.Context, key string, f func(msg domain.Message) error) error {
+func (q *SQS) Recieve(ctx context.Context, key string, f func(data string) error) error {
 	url := q.url(key)
 
 	params := &sqs.ReceiveMessageInput{
@@ -79,16 +73,7 @@ func (q *SQS) RecieveUser(ctx context.Context, key string, f func(msg domain.Mes
 		go func(msg *sqs.Message) {
 			defer wg.Done()
 
-			u := &user.User{}
-
-			err := u.Unmarshal(*msg.Body)
-			if err != nil {
-				fmt.Println(err) // TODO
-
-				return
-			}
-
-			_ = f(u)
+			_ = f(*msg.Body)
 
 			params := &sqs.DeleteMessageInput{
 				QueueUrl:      aws.String(url),

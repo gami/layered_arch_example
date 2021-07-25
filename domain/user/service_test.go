@@ -4,7 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/gami/layered_arch_example/domain/user"
+	"app/domain/user"
+
 	"github.com/google/go-cmp/cmp"
 )
 
@@ -44,7 +45,7 @@ func Test_service_FindByID(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			ctx := context.Background()
-			s := user.NewService(tt.repo)
+			s := user.NewService(tt.repo, nil)
 			got, err := s.FindByID(ctx, tt.args.id)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("service.FindByID() error = %v, wantErr %v", err, tt.wantErr)

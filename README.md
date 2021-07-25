@@ -2,24 +2,16 @@
 
 ## What's?
 
-レイヤードアーキテクチャで作成したシンプルなWEBアプリケーションのサンプルです。
+レイヤードアーキテクチャによるAPIサーバーのサンプルです。
+言語はGoです。
 
-一般の事例などでよく見られるクリーンアーキテクチャに比べて
-- ディレクトリ階層が極力フラットである（infra層などレイヤーのためのディレクトリがない） 
-- Usecase層を省略している（単一ドメインの処理はドメインサービスで行えばよいが、複数のドメインでの処理が必要な場合はControllerに責務が置かれる）
+レイヤーで責務を分けることで、テストを容易にし、かつそれぞれのパッケージをシンプルに保っています。
 
-などの特徴があります。
-
-### pros 
-- ドメインを分けることで、ドメイン外の責務を分離している
-
-### cons
-- DB -> Domain -> APIResponseなどの詰め替えが発生する
 
 ## レイヤー構成と所属するパッケージ
 ### 1st
 外部とのアダプタ
-- cmd (main)
+- cmd
 - adapter
   - mysql
   - aws
@@ -84,7 +76,11 @@ Coreしか呼んではいけない
 ## 環境構築
 
 ```
+direnv
 make setup
+docker compose -f docker/docker-compose.local.yaml run app make setup
+
 # migration
 docker compose -f docker/docker-compose.local.yaml up
 ```
+

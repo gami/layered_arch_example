@@ -3,8 +3,8 @@ package usecase
 import (
 	"context"
 
-	"github.com/gami/layered_arch_example/domain/profile"
-	"github.com/gami/layered_arch_example/domain/user"
+	"app/domain/profile"
+	"app/domain/user"
 )
 
 type UserService interface {

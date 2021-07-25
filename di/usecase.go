@@ -1,8 +1,8 @@
 package di
 
 import (
-	"github.com/gami/layered_arch_example/controller"
-	"github.com/gami/layered_arch_example/usecase"
+	"app/controller"
+	"app/usecase"
 )
 
 func InjectUserUsecase() controller.UserUsecase {

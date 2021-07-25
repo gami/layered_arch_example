@@ -1,6 +1,6 @@
 package di
 
-import "github.com/gami/layered_arch_example/controller"
+import "app/controller"
 
 func InjectUserController() *controller.User {
 	return controller.NewUser(

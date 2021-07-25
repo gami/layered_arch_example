@@ -3,8 +3,7 @@ package user_test
 import (
 	"context"
 
-	"github.com/gami/layered_arch_example/domain"
-	"github.com/gami/layered_arch_example/domain/user"
+	"app/domain/user"
 )
 
 type MockRepository struct {
@@ -20,14 +19,14 @@ func (m *MockRepository) Create(ctx context.Context, u *user.User) (user.ID, err
 }
 
 type MockMessenger struct {
-	SendFunc        func(ctx context.Context, key string, msg domain.Message) error
-	RecieveUserFunc func(ctx context.Context, key string, f func(msg domain.Message) error) error
+	SendCreatedFunc    func(ctx context.Context, msg *user.User) error
+	RecieveCreatedFunc func(ctx context.Context, f func(msg *user.User) error) error
 }
 
-func (m *MockMessenger) Send(ctx context.Context, key string, msg domain.Message) error {
-	return m.SendFunc(ctx, key, msg)
+func (m *MockMessenger) SendCreated(ctx context.Context, msg *user.User) error {
+	return m.SendCreatedFunc(ctx, msg)
 }
 
-func (m *MockMessenger) RecieveUser(ctx context.Context, key string, f func(msg domain.Message) error) error {
-	return m.RecieveUserFunc(ctx, key, f)
+func (m *MockMessenger) RecieveCreated(ctx context.Context, f func(msg *user.User) error) error {
+	return m.RecieveCreatedFunc(ctx, f)
 }

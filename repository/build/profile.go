@@ -1,8 +1,8 @@
 package build
 
 import (
-	"github.com/gami/layered_arch_example/domain/profile"
-	"github.com/gami/layered_arch_example/gen/schema"
+	"app/domain/profile"
+	"app/gen/schema"
 )
 
 func DomainProfile(s *schema.Profile) *profile.Profile {

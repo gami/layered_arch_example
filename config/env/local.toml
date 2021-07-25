@@ -1,0 +1,2 @@
+[aws.sqs]
+  base_url = "ap-northeast-1"

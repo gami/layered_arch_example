@@ -6,9 +6,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/gami/layered_arch_example/config"
-	"github.com/pkg/errors"
+	"app/config"
 
+	"github.com/pkg/errors"
 	// load mysql driver
 	_ "github.com/go-sql-driver/mysql"
 )

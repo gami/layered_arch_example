@@ -3,7 +3,7 @@ package profile
 import (
 	"errors"
 
-	"github.com/gami/layered_arch_example/domain/user"
+	"app/domain/user"
 )
 
 type ID uint64

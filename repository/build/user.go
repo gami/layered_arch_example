@@ -1,8 +1,8 @@
 package build
 
 import (
-	"github.com/gami/layered_arch_example/domain/user"
-	"github.com/gami/layered_arch_example/gen/schema"
+	"app/domain/user"
+	"app/gen/schema"
 )
 
 func DomainUser(s *schema.User) *user.User {

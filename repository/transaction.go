@@ -8,7 +8,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/gami/layered_arch_example/adapter/mysql"
+	"app/adapter/mysql"
 )
 
 type txKey string

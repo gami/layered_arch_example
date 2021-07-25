@@ -1,14 +1,15 @@
 package di
 
 import (
-	"github.com/gami/layered_arch_example/domain/profile"
-	"github.com/gami/layered_arch_example/domain/user"
-	"github.com/gami/layered_arch_example/usecase"
+	"app/domain/profile"
+	"app/domain/user"
+	"app/usecase"
 )
 
 func InjectUserService() usecase.UserService {
 	return user.NewService(
 		InjectUserRepository(),
+		InjectUserMessenger(),
 	)
 }
 

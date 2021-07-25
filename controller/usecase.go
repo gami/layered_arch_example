@@ -3,9 +3,9 @@ package controller
 import (
 	"context"
 
-	"github.com/gami/layered_arch_example/domain/profile"
-	"github.com/gami/layered_arch_example/domain/user"
-	"github.com/gami/layered_arch_example/usecase/form"
+	"app/domain/profile"
+	"app/domain/user"
+	"app/usecase/form"
 )
 
 type UserQuery interface {

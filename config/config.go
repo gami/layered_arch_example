@@ -14,6 +14,9 @@ import (
 //go:embed env/default.toml
 var defaultEnv []byte
 
+//go:embed env/local.toml
+var localEnv []byte
+
 //go:embed env/dev.toml
 var devEnv []byte
 
@@ -23,7 +26,8 @@ var prdEnv []byte
 // Config represents configuration root.
 type Config struct {
 	AppEnv   string
-	AWS      AWS
+	HTTP     HTTP `toml:"http"`
+	AWS      AWS  `toml:"aws"`
 	Database Database
 }
 
@@ -46,7 +50,7 @@ func GetConfig() *Config {
 // NewConfig is a function to init and load Configuration from file or environment variables.
 func NewConfig() (*Config, error) {
 	conf := &Config{}
-	conf.AppEnv = "dev"
+	conf.AppEnv = "local"
 
 	loadFromEnv(conf)
 
@@ -76,6 +80,8 @@ func loadFromToml(tml []byte, conf *Config) error {
 
 func loadFromTomlEnv(conf *Config) error {
 	switch conf.AppEnv {
+	case "local":
+		return loadFromToml(localEnv, conf)
 	case "dev":
 		return loadFromToml(devEnv, conf)
 	case "prd":

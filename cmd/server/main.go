@@ -5,9 +5,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gami/layered_arch_example/controller"
-	"github.com/gami/layered_arch_example/di"
-	api "github.com/gami/layered_arch_example/gen/openapi"
+	"app/controller"
+	"app/di"
+
+	api "app/gen/openapi"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 
-	api "github.com/gami/layered_arch_example/gen/openapi"
+	api "app/gen/openapi"
 )
 
 type Health struct{}

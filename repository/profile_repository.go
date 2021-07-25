@@ -5,12 +5,13 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/gami/layered_arch_example/adapter/mysql"
-	"github.com/gami/layered_arch_example/domain/failure"
-	"github.com/gami/layered_arch_example/domain/profile"
-	"github.com/gami/layered_arch_example/domain/user"
-	"github.com/gami/layered_arch_example/gen/schema"
-	"github.com/gami/layered_arch_example/repository/build"
+	"app/adapter/mysql"
+	"app/domain/failure"
+	"app/domain/profile"
+	"app/domain/user"
+	"app/gen/schema"
+	"app/repository/build"
+
 	"github.com/pkg/errors"
 	"github.com/volatiletech/sqlboiler/v4/boil"
 )

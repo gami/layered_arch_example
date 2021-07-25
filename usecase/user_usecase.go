@@ -3,11 +3,12 @@ package usecase
 import (
 	"context"
 
+	"app/domain"
+	"app/domain/profile"
+	"app/domain/user"
+	"app/usecase/form"
+
 	"github.com/friendsofgo/errors"
-	"github.com/gami/layered_arch_example/domain"
-	"github.com/gami/layered_arch_example/domain/profile"
-	"github.com/gami/layered_arch_example/domain/user"
-	"github.com/gami/layered_arch_example/usecase/form"
 )
 
 type User struct {

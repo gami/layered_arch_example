@@ -3,8 +3,8 @@ package query
 import (
 	"context"
 
-	"github.com/gami/layered_arch_example/domain/user"
-	"github.com/gami/layered_arch_example/usecase"
+	"app/domain/user"
+	"app/usecase"
 )
 
 type User struct {

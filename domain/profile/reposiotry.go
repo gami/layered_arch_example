@@ -3,7 +3,7 @@ package profile
 import (
 	"context"
 
-	"github.com/gami/layered_arch_example/domain/user"
+	"app/domain/user"
 )
 
 type Repository interface {

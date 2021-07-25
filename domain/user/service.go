@@ -3,19 +3,20 @@ package user
 import (
 	"context"
 
+	"app/domain/failure"
+
 	"github.com/friendsofgo/errors"
-	"github.com/gami/layered_arch_example/domain"
-	"github.com/gami/layered_arch_example/domain/failure"
 )
 
 type Service struct {
 	repo Repository
-	msgs domain.Messenger
+	msgs Messenger
 }
 
-func NewService(repo Repository) *Service {
+func NewService(repo Repository, msgs Messenger) *Service {
 	return &Service{
 		repo: repo,
+		msgs: msgs,
 	}
 }
 
@@ -40,7 +41,7 @@ func (s *Service) Create(ctx context.Context, u *User) (ID, error) {
 
 	u.ID = id
 
-	err = s.msgs.Send(ctx, domain.KeyUserCreated, u)
+	err = s.msgs.SendCreated(ctx, u)
 	if err != nil {
 		return 0, errors.Wrapf(err, "failed to send user_created message id=%v", id)
 	}

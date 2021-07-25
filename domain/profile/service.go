@@ -3,9 +3,10 @@ package profile
 import (
 	"context"
 
+	"app/domain/failure"
+	"app/domain/user"
+
 	"github.com/friendsofgo/errors"
-	"github.com/gami/layered_arch_example/domain/failure"
-	"github.com/gami/layered_arch_example/domain/user"
 )
 
 type Service struct {

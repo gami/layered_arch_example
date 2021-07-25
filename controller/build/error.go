@@ -1,7 +1,7 @@
 package build
 
 import (
-	api "github.com/gami/layered_arch_example/gen/openapi"
+	api "app/gen/openapi"
 )
 
 func Error(err error) *api.Error {

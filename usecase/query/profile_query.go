@@ -3,9 +3,9 @@ package query
 import (
 	"context"
 
-	"github.com/gami/layered_arch_example/domain/profile"
-	"github.com/gami/layered_arch_example/domain/user"
-	"github.com/gami/layered_arch_example/usecase"
+	"app/domain/profile"
+	"app/domain/user"
+	"app/usecase"
 )
 
 type Profile struct {

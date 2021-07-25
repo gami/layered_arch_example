@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/gami/layered_arch_example/controller/build"
-	"github.com/gami/layered_arch_example/domain/user"
-	api "github.com/gami/layered_arch_example/gen/openapi"
+	"app/controller/build"
+	"app/domain/user"
+	api "app/gen/openapi"
 )
 
 type User struct {

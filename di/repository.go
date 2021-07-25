@@ -1,9 +1,9 @@
 package di
 
 import (
-	"github.com/gami/layered_arch_example/domain/profile"
-	"github.com/gami/layered_arch_example/domain/user"
-	"github.com/gami/layered_arch_example/repository"
+	"app/domain/profile"
+	"app/domain/user"
+	"app/repository"
 )
 
 func InjectUserRepository() user.Repository {

@@ -4,8 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/gami/layered_arch_example/controller/build"
-	"github.com/gami/layered_arch_example/domain/failure"
+	"app/controller/build"
+	"app/domain/failure"
+
 	"github.com/pkg/errors"
 )
 

@@ -18,11 +18,11 @@ func loadDatabaseConfig(conf *Config) {
 		conf.Database.Host = os.Getenv("TEST_DB_HOST")
 		conf.Database.User = os.Getenv("TEST_DB_USER")
 		conf.Database.Password = os.Getenv("TEST_DB_PASSWORD")
-		conf.Database.Port = 3306
+		conf.Database.Port = 3307
 		conf.Database.Name = "user_test"
 	} else {
 		conf.Database.Host = os.Getenv("USER_DB_HOST")
-		conf.Database.User = "user"
+		conf.Database.User = os.Getenv("USER_DB_USER")
 		conf.Database.Password = os.Getenv("USER_DB_PASSWORD")
 		conf.Database.Port = 3306
 		conf.Database.Name = "user"

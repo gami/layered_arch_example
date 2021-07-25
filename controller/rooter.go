@@ -5,8 +5,9 @@ import (
 	"net/http"
 	"runtime"
 
+	api "app/gen/openapi"
+
 	validator "github.com/deepmap/oapi-codegen/pkg/chi-middleware"
-	api "github.com/gami/layered_arch_example/gen/openapi"
 	middleware "github.com/go-chi/chi/middleware"
 	"github.com/go-chi/chi/v5"
 	"github.com/pkg/errors"

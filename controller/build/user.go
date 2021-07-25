@@ -1,9 +1,9 @@
 package build
 
 import (
-	"github.com/gami/layered_arch_example/domain/profile"
-	"github.com/gami/layered_arch_example/domain/user"
-	api "github.com/gami/layered_arch_example/gen/openapi"
+	"app/domain/profile"
+	"app/domain/user"
+	api "app/gen/openapi"
 )
 
 type User struct {
