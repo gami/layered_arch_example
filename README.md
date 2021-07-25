@@ -223,5 +223,20 @@ docker compose -f docker/docker-compose.local.yaml up
 
 ## 使用しているサードパーティライブラリ
 - oapi-codegen
+  - OpenAPI3に対応している
+  - スキーマ駆動開発ができる
+  - コンポーネントを型として自動生成できるので、型構造が会わなくなった場合にビルドエラーにできる
+  - スキーマバリデーションできる
 - chi
+  - oapi-codegenが対応している
+  - net/httpに完全準拠している
+  - middlewareがまあまあある
 - SQLBoiler
+  - DBスキーマからモデルを生成できる
+    - スキーマと実装が合わなくなったらビルドエラーにできる
+    - facebook/entも可能だが、あちらはmigrationも同時に行う必要があり、使いづらい。
+  - EagerLoadingしたい場合は外部キー制約が必須（よい）
+  - SQLライクなインターフェース
+  - パフォーマンスが良い
+  - nullが独自型
+  - bulk insertできない
