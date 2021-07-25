@@ -2,7 +2,7 @@ package di
 
 import (
 	"app/domain"
-	"app/repository"
+	"app/infra/repository"
 )
 
 func InjectTx() domain.Tx {

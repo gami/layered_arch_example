@@ -2,7 +2,7 @@ package di
 
 import (
 	"app/domain/user"
-	"app/messenger"
+	"app/infra/messenger"
 )
 
 func InjectUserMessenger() user.Messenger {

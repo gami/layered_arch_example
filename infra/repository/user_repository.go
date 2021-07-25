@@ -9,7 +9,7 @@ import (
 	"app/domain/failure"
 	"app/domain/user"
 	"app/gen/schema"
-	"app/repository/build"
+	"app/infra/repository/build"
 
 	"github.com/pkg/errors"
 	"github.com/volatiletech/sqlboiler/v4/boil"

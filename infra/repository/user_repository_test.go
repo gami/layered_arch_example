@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"app/domain/user"
-	"app/repository"
+	"app/infra/repository"
 
 	"github.com/google/go-cmp/cmp"
 )

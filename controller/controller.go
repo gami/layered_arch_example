@@ -13,6 +13,7 @@ import (
 type Controller struct {
 	*User
 	*Health
+	// Add here when adding new controller
 }
 
 func NewController(u *User) *Controller {
@@ -22,17 +23,17 @@ func NewController(u *User) *Controller {
 	}
 }
 
-func respondOK(w http.ResponseWriter, result interface{}) {
+func RespondOK(w http.ResponseWriter, result interface{}) {
 	err := json.NewEncoder(w).Encode(result)
 
 	if err != nil {
-		respondError(w, errors.Wrap(err, "faile to respond_ok"))
+		RespondError(w, errors.Wrap(err, "faile to respond_ok"))
 
 		return
 	}
 }
 
-func respondError(w http.ResponseWriter, err error) {
+func RespondError(w http.ResponseWriter, err error) {
 	var ae *failure.AppError
 	if errors.As(err, &ae) {
 		// TODO log info

@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"app/controller"
+	"app/controller/rooter"
 	"app/di"
 
 	api "app/gen/openapi"
@@ -19,15 +19,13 @@ func main() {
 }
 
 func Server() *http.Server {
-	rt, err := controller.NewRouter()
+	rt, err := rooter.NewRouter()
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	api.HandlerFromMux(
-		controller.NewController(
-			di.InjectUserController(),
-		),
+		di.InjectController(),
 		rt,
 	)
 

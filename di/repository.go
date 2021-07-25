@@ -3,7 +3,7 @@ package di
 import (
 	"app/domain/profile"
 	"app/domain/user"
-	"app/repository"
+	"app/infra/repository"
 )
 
 func InjectUserRepository() user.Repository {

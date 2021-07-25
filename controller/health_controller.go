@@ -18,5 +18,5 @@ func (c *Health) GetHealth(w http.ResponseWriter, r *http.Request) {
 		Message: "OK",
 	}
 
-	respondOK(w, res)
+	RespondOK(w, res)
 }

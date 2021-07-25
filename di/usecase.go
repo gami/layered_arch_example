@@ -12,3 +12,9 @@ func InjectUserUsecase() controller.UserUsecase {
 		InjectProfileService(),
 	)
 }
+
+func InjectProfileUsecase() controller.ProfileUsecase {
+	return usecase.NewProfile(
+		InjectProfileService(),
+	)
+}

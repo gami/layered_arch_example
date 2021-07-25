@@ -11,37 +11,34 @@ import (
 )
 
 type User struct {
-	userQuery    UserQuery
-	profileQuery ProfileQuery
-	userUsecase  UserUsecase
+	user    UserUsecase
+	profile ProfileUsecase
 }
 
 func NewUser(
-	userQuery UserQuery,
-	profileQuery ProfileQuery,
-	userUsecase UserUsecase,
+	u UserUsecase,
+	p ProfileUsecase,
 ) *User {
 	return &User{
-		userQuery:    userQuery,
-		profileQuery: profileQuery,
-		userUsecase:  userUsecase,
+		user:    u,
+		profile: p,
 	}
 }
 
 // GetUser processes (GET /user/{user_id})
 func (c *User) GetUser(w http.ResponseWriter, r *http.Request, userID uint64) {
 	ctx := context.Background()
-	u, err := c.userQuery.Find(ctx, user.ID(userID))
+	u, err := c.user.Find(ctx, user.ID(userID))
 
 	if err != nil {
-		respondError(w, err)
+		RespondError(w, err)
 
 		return
 	}
 
-	profile, err := c.profileQuery.FindByUserID(ctx, u.ID)
+	profile, err := c.profile.FindByUserID(ctx, u.ID)
 	if err != nil {
-		respondError(w, err)
+		RespondError(w, err)
 
 		return
 	}
@@ -50,7 +47,7 @@ func (c *User) GetUser(w http.ResponseWriter, r *http.Request, userID uint64) {
 		WithProfile(profile).
 		Build()
 
-	respondOK(w, res)
+	RespondOK(w, res)
 }
 
 // CreateUser processes (POST /users)
@@ -59,19 +56,19 @@ func (c *User) CreateUser(w http.ResponseWriter, r *http.Request) {
 
 	var body *api.CreateUserJSONRequestBody
 	if err := json.NewDecoder(r.Body).Decode(body); err != nil {
-		respondError(w, err)
+		RespondError(w, err)
 
 		return
 	}
 
-	id, err := c.userUsecase.Create(ctx, build.ToCreateUser(body))
+	id, err := c.user.Create(ctx, build.ToCreateUser(body))
 
 	if err != nil {
-		respondError(w, err)
+		RespondError(w, err)
 
 		return
 	}
 
 	res := build.Created(id)
-	respondOK(w, res)
+	RespondOK(w, res)
 }
