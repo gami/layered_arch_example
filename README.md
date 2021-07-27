@@ -9,6 +9,9 @@
 一方でトレードオフとして、データベーススキーマから自動生成されたモデル、ドメインモデル、OpenAPIスキーマから自動生成されたモデルとの間で合計2回の変換処理が発生し、記述量が若干増える懸念があります。
 
 ## レイヤー構成と所属するパッケージ
+### 構成
+![レイヤー構成](http://www.plantuml.com/plantuml/png/VPBDJiCm48JlUOezmY51_1mHwdj44LevMuZmJx0tI17gksCiWnDdrQDdfljDfpq5Hi-BqOrr8u76bVmzV3S0CweFV2F04MScdpG0vSpiB5a6iuPF7RNB9glCUCZrblZkdNaUKlZIR4WFEv9obhtJMe0jWVnhyPCxMIP_HaNGHrjXe9j_wNQecatsx54-wsbsOMBdrromz7lSzSiK-KeswsRH-fhKeHdiTtZQSKPdSB8YHY9dH4qkNwk6_xBBhm9j-tBOjw-4b99tbaHuxZhejxkaN7dcUz8wHHJlPJVVYquh6UK9aIDlyPSivW1TToMT_l6PM7smEP4T5wD_0000)
+
 ### 各レイヤー
 各パッケージは、上のレイヤーに依存してはいけない。上のレイヤーを使いたい場合はinterfaceを使用する。
 usecase、domainサービスを使う場合もinterfaceを使用する。
