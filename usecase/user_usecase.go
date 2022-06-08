@@ -29,6 +29,10 @@ func (s *User) Find(ctx context.Context, id user.ID) (*user.User, error) {
 	return s.user.FindByID(ctx, id)
 }
 
+func (s *User) FindAll(ctx context.Context, id []user.ID) ([]*user.User, error) {
+	return s.user.FindAllByIDs(ctx, id)
+}
+
 func (s *User) Create(ctx context.Context, input form.CreateUser) (uint64, error) {
 	u := &user.User{
 		Name: input.Name,

@@ -9,6 +9,7 @@ import (
 
 type UserService interface {
 	FindByID(ctx context.Context, id user.ID) (*user.User, error)
+	FindAllByIDs(ctx context.Context, ids []user.ID) ([]*user.User, error)
 	Create(ctx context.Context, u *user.User) (user.ID, error)
 }
 

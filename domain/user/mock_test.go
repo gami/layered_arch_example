@@ -7,13 +7,19 @@ import (
 )
 
 type MockRepository struct {
-	FindByIDFunc func(ctx context.Context, id user.ID) (*user.User, error)
-	CreateFunc   func(ctx context.Context, u *user.User) (user.ID, error)
+	FindByIDFunc     func(ctx context.Context, id user.ID) (*user.User, error)
+	FindAllByIDsFunc func(ctx context.Context, ids []user.ID) ([]*user.User, error)
+	CreateFunc       func(ctx context.Context, u *user.User) (user.ID, error)
 }
 
 func (m *MockRepository) FindByID(ctx context.Context, id user.ID) (*user.User, error) {
 	return m.FindByIDFunc(ctx, id)
 }
+
+func (m *MockRepository) FindAllByIDs(ctx context.Context, ids []user.ID) ([]*user.User, error) {
+	return m.FindAllByIDsFunc(ctx, ids)
+}
+
 func (m *MockRepository) Create(ctx context.Context, u *user.User) (user.ID, error) {
 	return m.CreateFunc(ctx, u)
 }

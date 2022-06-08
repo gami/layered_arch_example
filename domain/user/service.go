@@ -21,12 +21,11 @@ func NewService(repo Repository, msgs Messenger) *Service {
 }
 
 func (s *Service) FindByID(ctx context.Context, id ID) (*User, error) {
-	u, err := s.repo.FindByID(ctx, id)
-	if err != nil {
-		return nil, errors.Wrapf(err, "failed to fetch user id=%v", id)
-	}
+	return s.repo.FindByID(ctx, id)
+}
 
-	return u, nil
+func (s *Service) FindAllByIDs(ctx context.Context, ids []ID) ([]*User, error) {
+	return s.repo.FindAllByIDs(ctx, ids)
 }
 
 func (s *Service) Create(ctx context.Context, u *User) (ID, error) {

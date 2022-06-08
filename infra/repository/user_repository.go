@@ -64,3 +64,13 @@ func (r *User) Create(ctx context.Context, u *user.User) (user.ID, error) {
 
 	return user.ID(s.ID), nil
 }
+
+func (r *User) FindAllByIDs(ctx context.Context, ids []user.ID) ([]*user.User, error) {
+	s, err := schema.Users().All(ctx, r.conn(ctx))
+
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to query users")
+	}
+
+	return build.DomainUsers(s), nil
+}
